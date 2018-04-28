@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+
+body{
+	padding: 2%;
+	position: relative;
+	font-family: 'Rajdhani', sans-serif;
+}
+
+
+
+h1{
+	text-align: center;
+	font-size: 6em;
+
+}
+
+header p{
+	text-align: center;
+}
+
+.navig a{
+	color: blue;
+	min-width: 100%;
+  display: inline-block;
+	font-size: 1.5em;
+	padding: .2em 2.2em;
+	text-decoration: none;
+	border-radius: 0.2em;
+  	transition: background-color 1s ease-out;
+}
+
+.navig a:hover{
+	color: white;
+	text-decoration: none;
+	background-color: #00bfff;
+}
+
+footer p{
+	text-align: center;
+}
+
+.charts{
+	height: 500px;
+}
+
+.stick{
+	position: relative;
+	position: -webkit-sticky;
+  position: sticky;
+	top:0;
+}
+
+
+
+#theTruth{
+	font-size: 1.5em;
+	padding-bottom: 4em;
+}
+
+#bigWord{
+	font-size: 1.7em;
+	padding-right: .3em;
+}
+
+.widget{
+	padding-left: 1.7em;
+	height: 700px;
+  position: relative;
+	position: -webkit-sticky;
+  position: sticky;
+	top:0;
+}
+
+
+.btn{
+	width: 100%;
+	text-align: center;
+	font-size: 1.5em;
+	margin-bottom: 1.7em;
+}
+
+#mMkrs{
+	margin-bottom: 1em;
+	margin-left: 1em;
+	border-radius: 5pt;
+
+}
+
+#mMkrsTxt{
+	font-size: 3em;
+}
+
+#ceo{
+	float: left;
+}
+
+.btn a{
+	color: white;
+}
+
+#cio{
+	float: right;
+}

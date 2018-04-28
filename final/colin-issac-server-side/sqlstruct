@@ -1,0 +1,185 @@
+/*
+User{
+    UserID: int;
+    Username: char(255); // store in open
+    Password: char(255); // store hash value only
+    LoginKey: char(255); // store key hash only
+    IsAdmin: bool;
+}
+Person{
+    UserID: int;
+    FName: char(255);
+    LName: char(255);
+    StreetAddress: char(255);
+    CityAddress: char(255);
+    StateAddress: char(255);
+    ZipAddress: char(255);
+    CountryAddress: char(255);
+    PhoneNumber: char(15);
+}
+PaymentInfo{
+    UserID: int;
+    BillingFName: char(255);
+    BillingLName: char(255);
+    BillingStreetAddress: char(255);
+    BillingCityAddress: char(255);
+    BillingStateAddress: char(255);
+    BillingZipAddress: char(255);
+    BillingCountryAddress: char(255);
+
+    CreditCardNumber: char(12);
+    CreditCardCVV: char(4);
+    CreditCardExpiration: Date;
+
+}
+Cart{
+    UserID: int;
+    ListID: char(5);
+    StockName: char(255);
+    StockDescription: char(255);
+    Price: double;
+    Qty: double;
+}
+OwnedStocks{
+    UserID: int;
+    ListID: char(5);
+    StockName: char(255);
+    StockDescription: char(255);
+    PricePurchased: double;
+    DatePurchased: Date;
+    PriceCurrent: double;
+    PriceCurrentLastUpdated: Date;
+    Qty: int;
+}
+PendingStocks{
+    UserID: int;
+    ListID: char(5);
+    StockName: char(255);
+    StockDescription: char(255);
+    Price: double;
+    Qty: double;
+    Sell: bool;
+}
+*/
+
+DROP DATABASE IF EXISTS StockDatabase;
+
+CREATE DATABASE StockDatabase;
+USE StockDatabase;
+
+/* /////////////////////////////////////////// */
+/* //////////////  CREATE User  ////////////// */
+/* /////////////////////////////////////////// */
+
+DROP TABLE IF EXISTS User;
+
+CREATE TABLE User (
+    UserID int(11) NOT NULL AUTO_INCREMENT,
+    Username varchar(255) DEFAULT NULL,
+    Password varchar(255) DEFAULT NULL,
+    LoginKey varchar(255) DEFAULT NULL,
+    IsAdmin BIT DEFAULT NULL,
+    PRIMARY KEY(UserID)
+);
+
+/* /////////////////////////////////////////// */
+/* ///////////// CREATE Person  ////////////// */
+/* /////////////////////////////////////////// */
+
+DROP TABLE IF EXISTS Person;
+
+CREATE TABLE Person (
+    UserID_FK int(11) NOT NULL,
+    PersonID int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    FName varchar(255) DEFAULT NULL,
+    LName varchar(255) DEFAULT NULL,
+    StreetAddress varchar(255) DEFAULT NULL,
+    CityAddress varchar(255) DEFAULT NULL,
+    StateAddress varchar(255) DEFAULT NULL,
+    ZipAddress varchar(255) DEFAULT NULL,
+    CountryAddress varchar(255) DEFAULT NULL,
+    PhoneNumber varchar(15) DEFAULT NULL,
+    FOREIGN KEY (UserID_FK) REFERENCES User(UserID)
+);
+
+
+/* /////////////////////////////////////////// */
+/* //////// CREATE PaymentInfo  ////////////// */
+/* /////////////////////////////////////////// */
+
+DROP TABLE IF EXISTS PaymentInfo;
+
+CREATE TABLE PaymentInfo (
+
+    UserID_FK int(11) NOT NULL,
+    PaymentID INT(15) PRIMARY KEY AUTO_INCREMENT,
+
+    BillingFName varchar(255) DEFAULT NULL,
+    BillingLName varchar(255) DEFAULT NULL,
+    BillingStreetAddress varchar(255) DEFAULT NULL,
+    BillingCityAddress varchar(255) DEFAULT NULL,
+    BillingStateAddress varchar(255) DEFAULT NULL,
+    BillingZipAddress varchar(255) DEFAULT NULL,
+    BillingCountryAddress varchar(255) DEFAULT NULL,
+
+    CreditCardNumber varchar(12) DEFAULT NULL,
+    CreditCardCVV varchar(4) DEFAULT NULL,
+    CreditCardExpiration DATE DEFAULT NULL,
+    FOREIGN KEY (UserID_FK) REFERENCES User(UserID)
+);
+
+
+/* /////////////////////////////////////////// */
+/* /////////////// CREATE Cart  ////////////// */
+/* /////////////////////////////////////////// */
+
+DROP TABLE IF EXISTS Cart;
+
+CREATE TABLE Cart (
+    UserID_FK int(11) NOT NULL,
+    CartID INT(15) PRIMARY KEY AUTO_INCREMENT,
+    ListID varchar(5) DEFAULT NULL,
+    StockName varchar(255) DEFAULT NULL,
+    StockDescription varchar(255) DEFAULT NULL,
+    Price DOUBLE(10,5) DEFAULT NULL,
+    Qty int(5) DEFAULT NULL,
+    FOREIGN KEY (UserID_FK) REFERENCES User(UserID)
+);
+
+/* /////////////////////////////////////////// */
+/* /////////// CREATE OwnedStocks  /////////// */
+/* /////////////////////////////////////////// */
+
+DROP TABLE IF EXISTS OwnedStocks;
+
+CREATE TABLE OwnedStocks (
+    UserID_FK int(11) NOT NULL,
+    StockID INT(15) PRIMARY KEY AUTO_INCREMENT,
+    ListID varchar(5) DEFAULT NULL,
+    StockName varchar(255) DEFAULT NULL,
+    StockDescription varchar(255) DEFAULT NULL,
+    PricePurchased DOUBLE(10,5) DEFAULT NULL,
+    DatePurchased Date DEFAULT NULL,
+    PriceCurrent DOUBLE(10,5) DEFAULT NULL,
+    PriceCurrentLastUpdated Date DEFAULT NULL,
+    Qty int DEFAULT NULL,
+    FOREIGN KEY (UserID_FK) REFERENCES User(UserID)
+);
+
+/* /////////////////////////////////////////// */
+/* ///////// CREATE PendingStocks  /////////// */
+/* /////////////////////////////////////////// */
+
+DROP TABLE IF EXISTS PendingStocks;
+
+CREATE TABLE PendingStocks (
+    UserID_FK int(11) NOT NULL,
+    StockID INT(15) PRIMARY KEY AUTO_INCREMENT,
+    ListID varchar(5) DEFAULT NULL,
+    StockName varchar(255) DEFAULT NULL,
+    StockDescription varchar(255) DEFAULT NULL,
+    Price DOUBLE(10,5) DEFAULT NULL,
+    Qty int(5) DEFAULT NULL,
+    Sell BIT DEFAULT NULL,
+    FOREIGN KEY (UserID_FK) REFERENCES User(UserID)
+);
